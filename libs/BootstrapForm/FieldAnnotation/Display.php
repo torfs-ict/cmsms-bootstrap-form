@@ -30,10 +30,16 @@ class Display extends FieldAnnotation {
     public $columnOffsetTv = null;
     /** @var string[] Extra CSS classes */
     public $cssClasses = [];
+    /** @var string The field help text */
+    public $helpText = null;
+    /** @var bool Whether or not to hide the label (please use a placeholder when hiding) */
+    public $hideLabel = false;
     /** @var string The input type */
     public $input = 'text';
     /** @var string The field label */
     public $label = '';
+    /** @var string The placeholder text */
+    public $placeholder = null;
     /** @var bool This fields ends the current Bootstrap row */
     public $rowEnd = false;
     /** @var bool This fields starts a new Bootstrap row */
