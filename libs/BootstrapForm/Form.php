@@ -2,7 +2,10 @@
 
 namespace BootstrapForm;
 
-use phpDocumentor\Reflection\DocBlock;
+use BootstrapForm\FieldAnnotation\Captcha;
+use BootstrapForm\FieldAnnotation\Display;
+use BootstrapForm\FieldAnnotation\Functionality;
+use BootstrapForm\FieldAnnotation\Validation;
 
 abstract class Form {
     /**
@@ -28,19 +31,11 @@ abstract class Form {
         foreach($this as $field => $value) {
             if (in_array($field, ['fields', 'mod'])) continue;
             $config = new FieldConfig();
-            $ref = new \ReflectionProperty(get_called_class(), $field);
-            $doc = new DocBlock($ref);
-            $tags = $doc->getTags();
-            foreach($tags as $tag) {
-                if (fnmatch('fn:*', $tag->getContent())) {
-                    $fn = substr($tag->getContent(), 3);
-                    if (is_callable([$this, $fn])) {
-                        $config->__set($tag->getName(), call_user_func([$this, $fn], $field));
-                        continue;
-                    }
-                }
-                $config->__set($tag->getName(), $tag->getContent());
-            }
+            $config
+                ->set(Captcha::GetFor($this, $field))
+                ->set(Display::GetFor($this, $field))
+                ->set(Functionality::GetFor($this, $field))
+                ->set(Validation::GetFor($this, $field));
             $this->fields[$field] = $config;
         }
     }
