@@ -40,10 +40,8 @@ class Display extends FieldAnnotation {
     public $label = '';
     /** @var string The placeholder text */
     public $placeholder = null;
-    /** @var bool This fields ends the current Bootstrap row */
-    public $rowEnd = false;
     /** @var bool This fields starts a new Bootstrap row */
-    public $rowStart = false;
+    public $row = false;
     /** @var bool Whether or not the field should be hidden initially */
     public $visible = true;
 }
