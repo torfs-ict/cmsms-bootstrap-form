@@ -1,1 +1,0 @@
-{extends file="module_file_tpl:BootstrapForm;input-text.tpl"}

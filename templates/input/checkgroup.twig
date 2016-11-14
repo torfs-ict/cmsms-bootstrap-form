@@ -1,0 +1,22 @@
+{# @var form \BootstrapForm\Form #}
+{# @var config \BootstrapForm\FieldConfig #}
+{# @var field string #}
+{% set invalid = form.IsInvalid(field) %}
+<div class="form-group{% if invalid is not same as (false) %} has-error{% endif %}"
+     {% if config.validation.required %}data-toggle="tooltip" title="Dit veld is vereist" data-trigger="focus"{% endif %}
+>
+    <label for="{{ field }}" class="control-label">{{ config.display.label }}</label>
+    <div {% if invalid is not same as (false) %}aria-describedby="help-block-{{ field }}" aria-invalid="true"{% endif %} {% block extra %}{% endblock %} class="form-control {% block classes %}{% endblock %}" id="{{ field }}">
+        {% for opt in form.GetSelectOptions(field) %}
+            <div class="checkbox-inline">
+                <label class="control-label">
+                    <input type="checkbox"{% if form.IsSuccess() %} disabled{% endif %} value="{{ opt.Value() }}" {{ opt.Data() }}{% if opt.Value() == form.GetValue(field) %} checked{% endif %} name="{{ actionId }}{{ field }}">
+                    {{ opt.Label() }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+    {% if invalid is not same as (false) %}
+        <p class="help-block" id="help-block-{{ field }}">{{ invalid }}</p>
+    {% endif %}
+</div>

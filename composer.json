@@ -1,7 +1,7 @@
 {
     "name": "torfs-ict/cmsms-bootstrap-form",
     "description": "Bootstrap Form module for CMS Made Simple",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +12,7 @@
     "require": {
         "torfs-ict/cmsms": "^2.1",
         "torfs-ict/cmsms-netdesign": "^1.0",
-        "phpdocumentor/reflection-docblock": "^2.0"
+        "doctrine/annotations": "^1.3"
     },
     "autoload": {
         "psr-4": { "BootstrapForm\\" : "libs/BootstrapForm/" }
@@ -22,6 +22,7 @@
             "module": true,
             "name": "BootstrapForm",
             "bower": {
+                "bootstrap": "^3.0"
             }
         }
     }
