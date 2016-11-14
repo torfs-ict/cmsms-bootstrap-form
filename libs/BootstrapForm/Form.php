@@ -71,6 +71,10 @@ abstract class Form {
         return $this->fields;
     }
 
+    /**
+     * @param null $field
+     * @return false|string
+     */
     public function IsInvalid($field = null) {
         if (!$this->IsSubmit()) return false;
         if (array_key_exists($field, $this->fields)) {

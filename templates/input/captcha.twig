@@ -1,0 +1,15 @@
+{# @var form \BootstrapForm\Form #}
+{# @var config \BootstrapForm\FieldConfig #}
+{# @var field string #}
+{% set invalid = form.IsInvalid(field) %}
+{% if not form.IsSuccess() %}
+    <script src="//www.google.com/recaptcha/api.js"></script>
+    {% if invalid is not same as (false) %}
+        <div class="has-error">
+            <div class="g-recaptcha" data-sitekey="{{ config.captcha.siteKey }}"></div>
+            <p class="help-block" id="help-block-{{ field }}">{{ invalid }}</p>
+        </div>
+    {% else %}
+        <div class="g-recaptcha" data-sitekey="{{ config.captcha.siteKey }}"></div>
+    {% endif %}
+{% endif %}

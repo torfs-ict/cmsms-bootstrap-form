@@ -1,0 +1,22 @@
+{# @var form \BootstrapForm\Form #}
+{% set invalid = form.IsInvalid() %}
+{% if form.IsSubmit() %}
+    {% if invalid is not same as (false) %}
+        <p class="alert alert-danger">{{ invalid }}</p>
+    {% else %}
+        <p class="alert alert-success">Uw bericht werd succesvol verzonden. Wij nemen zo snel mogelijk contact met u op.</p>
+    {% endif %}
+{% endif %}
+{{ form_start(mid = actionId,returnid=returnid,extraparms={'form': form.GetName()})|raw }}
+<div class="row">
+    {% for field, config in form.GetFields() if config.display.visible %}
+        {% if config.display.row %}
+            </div>
+            <div class="row {{ config.display.cssClasses }}">
+        {% endif %}
+        <div class="{{ config.display.columnClasses }}"{% if config.functionality.autoSubmit %} data-auto-submit="1"{% endif %}>
+            {% include "input/" ~ config.display.input ~ ".twig" with {'form': form, 'field': field, 'config': config} %}
+        </div>
+    {% endfor %}
+</div>
+{{ form_end()|raw }}

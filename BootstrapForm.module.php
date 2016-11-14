@@ -1,8 +1,10 @@
 <?php
 
+use CMSMS\Twig\Twig;
 use NetDesign\NetDesignModule;
 
 class BootstrapForm extends NetDesignModule {
+    use Twig;
     private $forms = null;
 
     /**
@@ -50,6 +52,7 @@ class BootstrapForm extends NetDesignModule {
      */
     public function Initialize() {
         $this->GetForms();
+        $this->twigInit();
     }
 
     /**
@@ -139,9 +142,9 @@ class BootstrapForm extends NetDesignModule {
         if (!is_a($params['form'], 'BootstrapForm\\Form', true)) {
             throw new InvalidArgumentException(sprintf('"%s" is not a valid form class', $params['form']));
         }
-        $mod->smarty->assign('actionid', $mod->ActionId());
-        $mod->smarty->assign('form', new $params['form']);
-        echo $mod->SmartyFetch('default.tpl');
+        $form = new $params['form']();
+        $mod->twig->addGlobal('actionId', $mod->ActionId());
+        return $mod->twigRender('default.twig', ['form' => new $form()]);
     }
 
     public static function SmartyPluginContactData($params, Smarty_Internal_Template $template) {
