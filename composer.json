@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "torfs-ict/cmsms": "^2.1",
-        "torfs-ict/cmsms-netdesign": "^1.0",
+        "torfs-ict/cmsms": "^2.1.5.1",
+        "torfs-ict/cmsms-netdesign": "^1.0.0",
         "doctrine/annotations": "^1.3"
     },
     "autoload": {
