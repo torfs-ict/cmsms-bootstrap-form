@@ -12,9 +12,9 @@
     {% for field, config in form.GetFields() if config.display.visible %}
         {% if config.display.row %}
             </div>
-            <div class="row {{ config.display.cssClasses }}">
+            <div class="row">
         {% endif %}
-        <div class="{{ config.display.columnClasses }}"{% if config.functionality.autoSubmit %} data-auto-submit="1"{% endif %}>
+        <div class="{{ config.display.columnClasses }} {{ config.display.cssClasses }}"{% if config.functionality.autoSubmit %} data-auto-submit="1"{% endif %}>
             {% include "input/" ~ config.display.input ~ ".twig" with {'form': form, 'field': field, 'config': config} %}
         </div>
     {% endfor %}
