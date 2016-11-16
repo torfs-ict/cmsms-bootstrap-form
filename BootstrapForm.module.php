@@ -13,7 +13,7 @@ class BootstrapForm extends NetDesignModule {
      * @return string
      */
     public function GetVersion() {
-        return '2.0.2';
+        return '2.0.3';
     }
 
     /**
