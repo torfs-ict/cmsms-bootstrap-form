@@ -8,15 +8,6 @@ class BootstrapForm extends NetDesignModule {
     private $forms = null;
 
     /**
-     * Returns the version of the module
-     *
-     * @return string
-     */
-    public function GetVersion() {
-        return '2.0.3';
-    }
-
-    /**
      * @return string
      */
     public function GetFriendlyName() {
