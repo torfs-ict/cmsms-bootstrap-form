@@ -13,9 +13,11 @@ class Captcha extends FieldAnnotation {
     /** @var string API key pair secret */
     public $secret = '';
 
+    protected static $processed = null;
+
     protected function captchaValidate() {
-        if (fnmatch('192.*', $_SERVER['HTTP_HOST'])) return true;
         if (in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1'])) return true;
+        if (!is_null(static::$processed)) return static::$processed;
         $secret = urlencode($this->secret);
         $response = urlencode($_POST['g-recaptcha-response']);
         $ip = urlencode($_SERVER['REMOTE_ADDR']);
@@ -24,9 +26,12 @@ class Captcha extends FieldAnnotation {
         $result = file_get_contents($url);
         error_log("<< $result");
         $json = json_decode($result, true);
-        if (!is_array($json)) return false;
-        if (!array_key_exists('success', $json)) return false;
-        if ($json['success'] !== true) return false;
+        if (!is_array($json) || !array_key_exists('success', $json) || $json['success'] !== true) {
+            static::$processed = false;
+        } else {
+            static::$processed = true;
+        }
+        return static::$processed;
     }
 
     public function validate(Display $display, $value) {
