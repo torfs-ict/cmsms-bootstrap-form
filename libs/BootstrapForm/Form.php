@@ -8,6 +8,7 @@ use BootstrapForm\FieldAnnotation\Functionality;
 use BootstrapForm\FieldAnnotation\Validation;
 
 abstract class Form {
+    protected static $processed = null;
     /**
      * @var FieldConfig[]
      */
@@ -29,7 +30,7 @@ abstract class Form {
 
     private function ParseFields() {
         foreach($this as $field => $value) {
-            if (in_array($field, ['fields', 'mod'])) continue;
+            if (in_array($field, ['fields', 'mod', 'processed'])) continue;
             $config = new FieldConfig();
             $config
                 ->set(Captcha::GetFor($this, $field))
@@ -115,7 +116,11 @@ abstract class Form {
 
     public function Send()
     {
-        if ($this->IsSubmit() !== true || $this->IsInvalid() !== false) return false;
+        if (!is_null(static::$processed)) return static::$processed;
+        if ($this->IsSubmit() !== true || $this->IsInvalid() !== false) {
+            static::$processed = false;
+            return static::$processed;
+        }
         $mail = new \cms_mailer();
         $tmp = \cms_siteprefs::get('mailprefs');
         if ($tmp) {
@@ -159,6 +164,7 @@ abstract class Form {
             if (!empty($check)) $body .= $line;
         }
         $mail->SetBody($body);
-        return $mail->Send();
+        static::$processed = $mail->Send();
+        return static::$processed;
     }
 }
