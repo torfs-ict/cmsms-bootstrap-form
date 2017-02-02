@@ -2,5 +2,5 @@
 {# @var config \BootstrapForm\FieldConfig #}
 {# @var field string #}
 {% if not form.IsSuccess() %}
-    <input type="submit" name="{{ actionId }}submit" value="{{ config.display.label }}" class="btn btn-primary">
+    <input type="submit" name="{{ actionId }}submit" value="{{ config.display.label }}" class="btn btn-primary {{ config.display.cssClasses }}">
 {% endif %}
