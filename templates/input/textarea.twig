@@ -6,7 +6,7 @@
      {% if config.validation.required %}data-toggle="tooltip" title="Dit veld is vereist" data-trigger="focus"{% endif %}
 >
     <label for="{{ field }}" class="control-label">{{ config.display.label }}</label>
-    <textarea {% if form.IsSuccess() %}disabled{% endif %} {% if invalid is not same as (false) %}aria-describedby="help-block-{{ field }}" aria-invalid="true"{% endif %} {% block extra %}{% endblock %} class="form-control {% block classes %}{% endblock %}" name="{{ actionId }}{{ field }}" id="{{ field }}">{{ form.GetValue(field) }}</textarea>
+    <textarea rows="8" {% if form.IsSuccess() %}disabled{% endif %} {% if invalid is not same as (false) %}aria-describedby="help-block-{{ field }}" aria-invalid="true"{% endif %} {% block extra %}{% endblock %} class="form-control {% block classes %}{% endblock %}" name="{{ actionId }}{{ field }}" id="{{ field }}">{{ form.GetValue(field) }}</textarea>
     {% if invalid is not same as (false) %}
         <p class="help-block" id="help-block-{{ field }}">{{ invalid }}</p>
     {% endif %}
